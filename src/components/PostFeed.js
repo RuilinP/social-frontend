@@ -8,7 +8,7 @@ function PostFeed({ user, refresh }) {
   const [showCommentBox, setShowCommentBox] = useState({});
 
   useEffect(() => {
-    fetch("http://34.27.144.90:5000/posts")
+    fetch("http://backend:5000/posts")
       .then((res) => res.json())
       .then((data) => {
         setPosts(data);
@@ -18,14 +18,14 @@ function PostFeed({ user, refresh }) {
   }, [refresh]);
 
   const fetchLikeCount = (postId) => {
-    fetch(`http://34.27.144.90:5000/posts/${postId}/count`)
+    fetch(`http://backend:5000/posts/${postId}/count`)
       .then((res) => res.json())
       .then((data) => setLikeCounts((prev) => ({ ...prev, [postId]: data.likeCount })))
       .catch((err) => console.error("Failed to fetch like count:", err));
   };
 
   const handleLike = (postId) => {
-    fetch(`http://34.27.144.90:5000/posts/${postId}/like`, {
+    fetch(`http://backend:5000/posts/${postId}/like`, {
       method: "POST",
       headers: {
         "Authorization": `Bearer ${localStorage.getItem("token")}`, 
@@ -75,7 +75,7 @@ function PostFeed({ user, refresh }) {
                 {post.PostImages.map((img, index) => (
                   <Image
                     key={index}
-                    src={`http://34.27.144.90:5000${img.imageUrl}`}
+                    src={`http://backend:5000${img.imageUrl}`}
                     thumbnail
                     className="me-2 mb-2"
                     style={{ maxWidth: "600px", maxHeight: "600px" }}

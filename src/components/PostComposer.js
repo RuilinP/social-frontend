@@ -23,7 +23,7 @@ function PostComposer({ user, onPostCreated }) {
       formData.append("images", images[i]);
     }
 
-    const response = await fetch("http://34.27.144.90:5000/posts", {
+    const response = await fetch("http://backend:5000/posts", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,

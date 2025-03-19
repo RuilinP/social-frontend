@@ -28,7 +28,7 @@ function App() {
   }, [location]);
 
   const fetchUser = (token) => {
-    fetch("http://34.27.144.90:5000/users/me", {
+    fetch("http://backend:5000/users/me", {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())

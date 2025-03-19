@@ -11,7 +11,7 @@ function CommentComposer({ postId, user }) {
       try {
         const token = localStorage.getItem("token");
 
-        const response = await fetch(`http://34.27.144.90:5000/comments/post/${postId}`, {
+        const response = await fetch(`http://backend:5000/comments/post/${postId}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -40,7 +40,7 @@ function CommentComposer({ postId, user }) {
 
   const fetchLikeCount = async (commentId) => {
     try {
-      const res = await fetch(`http://34.27.144.90:5000/comments/${commentId}/count`);
+      const res = await fetch(`http://backend:5000/comments/${commentId}/count`);
       if (!res.ok) throw new Error("Failed to fetch like count");
       const data = await res.json(); 
       setLikeCounts((prev) => ({ ...prev, [commentId]: data.likeCount }));
@@ -57,7 +57,7 @@ function CommentComposer({ postId, user }) {
     try {
       const token = localStorage.getItem("token");
 
-      const response = await fetch(`http://34.27.144.90:5000/comments/post/${postId}`, {
+      const response = await fetch(`http://backend:5000/comments/post/${postId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -92,7 +92,7 @@ function CommentComposer({ postId, user }) {
   const handleLike = async (commentId) => {
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`http://34.27.144.90:5000/comments/${commentId}/like`, {
+      const res = await fetch(`http://backend:5000/comments/${commentId}/like`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
