@@ -25,7 +25,7 @@ function AppNavbar({ user, handleLogout }) {
             ) : (
               <Button
                 variant="light"
-                onClick={() => (window.location.href = "http://backend:5000/auth/google")}
+                onClick={() => (window.location.href = "http://34.118.227.55:5000/auth/google")}
               >
                 Login with Google
               </Button>

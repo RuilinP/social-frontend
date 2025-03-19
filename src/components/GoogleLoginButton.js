@@ -3,7 +3,7 @@ import { Button } from "react-bootstrap";
 
 function GoogleLoginButton() {
   const handleLogin = () => {
-    window.location.href = "http://backend:5000/auth/google";
+    window.location.href = "http://social.ruilin.moe/auth/google";
   };
 
   return (
