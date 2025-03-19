@@ -3,7 +3,7 @@ import { Button } from "react-bootstrap";
 
 function GoogleLoginButton() {
   const handleLogin = () => {
-    window.location.href = "http://localhost:5000/auth/google";
+    window.location.href = "http://34.27.144.90:5000/auth/google";
   };
 
   return (
