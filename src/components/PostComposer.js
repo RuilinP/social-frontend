@@ -6,8 +6,10 @@ function PostComposer({ user, onPostCreated }) {
   const [images, setImages] = useState([]);
 
   const handleFileChange = (e) => {
-    setImages(e.target.files);
-  };
+    const files = Array.from(e.target.files); 
+    setImages((prevImages) => [...prevImages, ...files]); 
+};
+
 
   const handlePostSubmit = async (e) => {
     e.preventDefault();
@@ -56,6 +58,18 @@ function PostComposer({ user, onPostCreated }) {
           <Form.Group controlId="postImages" className="mt-2">
             <Form.Control type="file" multiple onChange={handleFileChange} />
           </Form.Group>
+          <div className="image-preview">
+    {images.map((file, index) => (
+        <img
+            key={index}
+            src={URL.createObjectURL(file)}
+            alt="Preview"
+            className="preview-image"
+            style={{ width: "100px", height: "100px", margin: "5px" }}
+        />
+    ))}
+</div>
+
 
           <Button type="submit" variant="primary" className="mt-2">
             Post
