@@ -27,7 +27,7 @@ function App() {
   }, [location]);
 
   const fetchUser = (token) => {
-    fetch("http://localhost:5000/users/me", {
+    fetch("http://social-backend:5000/users/me", {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())
@@ -36,7 +36,7 @@ function App() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("token"); 
+    localStorage.removeItem("token");
     setUser(null);
   };
 
@@ -50,7 +50,7 @@ function App() {
             <PostFeed />
           </Col>
           <Col md={4}>
-          <UserInfo user={user} />
+            <UserInfo user={user} />
           </Col>
         </Row>
       </Container>

@@ -5,7 +5,7 @@ function PostFeed() {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    fetch("http://127.0.0.1:5000/posts")
+    fetch("http://social-backend:5000/posts")
       .then((res) => res.json())
       .then((data) => setPosts(data))
       .catch((err) => console.error("Failed to fetch posts:", err));
@@ -36,13 +36,13 @@ function PostFeed() {
               <div className="d-flex flex-wrap">
                 {post.PostImages.map((img, index) => (
                   <Image
-                  key={index}
-                  src={`http://localhost:5000${img.imageUrl}`} 
-                  thumbnail
-                  className="me-2 mb-2"
-                  style={{ maxWidth: "600px", maxHeight: "600px" }}
-                />
-                
+                    key={index}
+                    src={`http://social-backend:5000${img.imageUrl}`}
+                    thumbnail
+                    className="me-2 mb-2"
+                    style={{ maxWidth: "600px", maxHeight: "600px" }}
+                  />
+
                 ))}
               </div>
             )}
