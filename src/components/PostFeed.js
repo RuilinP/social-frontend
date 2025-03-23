@@ -8,7 +8,7 @@ function PostFeed({ user, refresh }) {
   const [showCommentBox, setShowCommentBox] = useState({});
 
   useEffect(() => {
-    fetch("http://127.0.0.1:5000/posts")
+    fetch("http://social-backend:5000/posts")
       .then((res) => res.json())
       .then((data) => {
         setPosts(data);
@@ -75,11 +75,14 @@ function PostFeed({ user, refresh }) {
                 {post.PostImages.map((img, index) => (
                   <Image
                     key={index}
-                    src={`http://localhost:5000${img.imageUrl}`}
+
+                    src={`http://social-backend:5000${img.imageUrl}`}
+
                     thumbnail
                     className="me-2 mb-2"
                     style={{ maxWidth: "600px", maxHeight: "600px" }}
                   />
+
                 ))}
               </div>
             )}

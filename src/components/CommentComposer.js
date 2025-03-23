@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Image, Form, Button } from "react-bootstrap";
 
-function CommentComposer({ postId, user }) { 
+
+function CommentComposer({ postId, user }) {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
   const [likeCounts, setLikeCounts] = useState({});
@@ -11,7 +12,8 @@ function CommentComposer({ postId, user }) {
       try {
         const token = localStorage.getItem("token");
 
-        const response = await fetch(`http://127.0.0.1:5000/comments/post/${postId}`, {
+
+        const response = await fetch(`http://social-backend:5000/comments/post/${postId}`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -42,7 +44,8 @@ function CommentComposer({ postId, user }) {
     try {
       const res = await fetch(`http://127.0.0.1:5000/comments/${commentId}/count`);
       if (!res.ok) throw new Error("Failed to fetch like count");
-      const data = await res.json(); 
+
+      const data = await res.json();
       setLikeCounts((prev) => ({ ...prev, [commentId]: data.likeCount }));
     } catch (error) {
       console.error("Failed to fetch like count:", error);
@@ -50,9 +53,12 @@ function CommentComposer({ postId, user }) {
   };
 
   const handleSubmit = async (event) => {
-    event.preventDefault(); 
 
-    if (!newComment.trim() || !user) return; 
+
+    event.preventDefault();
+
+    if (!newComment.trim() || !user) return;
+
 
     try {
       const token = localStorage.getItem("token");
@@ -63,9 +69,12 @@ function CommentComposer({ postId, user }) {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ 
-          content: newComment, 
-          userId: user.id, 
+
+
+        body: JSON.stringify({
+          content: newComment,
+          userId: user.id,
+
         }),
       });
 
@@ -73,10 +82,11 @@ function CommentComposer({ postId, user }) {
 
       const newCommentData = await response.json();
 
-      setComments([...comments, { 
-        ...newCommentData, 
+
+      setComments([...comments, {
+        ...newCommentData,
         User: { name: user.name, profile_picture: user.profile_picture }
-      }]); 
+      }]);
 
       if (newCommentData.id) {
         setLikeCounts((prev) => ({ ...prev, [newCommentData.id]: 0 }));
@@ -125,55 +135,56 @@ function CommentComposer({ postId, user }) {
 
       {/* Comment List */}
       {comments.map((comment) => {
-  const profileUrl = comment.User?.profile_picture || "/default-avatar.png";
-  const userName = comment.User?.name || "Unknown";
-  
-  // Format timestamp
-  const formattedTime = new Date(comment.createdAt).toLocaleString();
 
-  return (
-    <div key={comment.id}
-      style={{
-        border: "1px solid #ccc",
-        marginBottom: "8px",
-        padding: "8px",
-        borderRadius: "5px",
-      }}
-    >
-      {/* User Info */}
-      <div className="d-flex align-items-center">
-        <Image
-          src={profileUrl}
-          roundedCircle
-          width={30}
-          height={30}
-          className="me-2"
-          alt="comment profile"
-        />
-        <strong>{userName}</strong>
-      </div>
+        const profileUrl = comment.User?.profile_picture || "/default-avatar.png";
+        const userName = comment.User?.name || "Unknown";
 
-      {/* Comment Content & Timestamp */}
-      <div className="d-flex align-items-center justify-content-between" style={{ marginLeft: "35px" }}>
-        <p className="mb-0" style={{ marginRight: "10px" }}>{comment.content}</p>
-        <div>
-          <Button
-            variant="outline-primary"
-            size="sm"
-            onClick={() => handleLike(comment.id)}
-            style={{marginRight:"10px"}}
+        // Format timestamp
+        const formattedTime = new Date(comment.createdAt).toLocaleString();
+
+        return (
+          <div key={comment.id}
+            style={{
+              border: "1px solid #ccc",
+              marginBottom: "8px",
+              padding: "8px",
+              borderRadius: "5px",
+            }}
           >
-            👍 Like{" "}
-            {likeCounts[comment.id] !== undefined ? likeCounts[comment.id] : ""}
-          </Button>
-          <small className="text-muted me-2">
-            {formattedTime}
-          </small>
-        </div>
-      </div>
-    </div>
-  );
-})}
+            {/* User Info */}
+            <div className="d-flex align-items-center">
+              <Image
+                src={profileUrl}
+                roundedCircle
+                width={30}
+                height={30}
+                className="me-2"
+                alt="comment profile"
+              />
+              <strong>{userName}</strong>
+            </div>
+
+            {/* Comment Content & Timestamp */}
+            <div className="d-flex align-items-center justify-content-between" style={{ marginLeft: "35px" }}>
+              <p className="mb-0" style={{ marginRight: "10px" }}>{comment.content}</p>
+              <div>
+                <Button
+                  variant="outline-primary"
+                  size="sm"
+                  onClick={() => handleLike(comment.id)}
+                  style={{ marginRight: "10px" }}
+                >
+                  👍 Like{" "}
+                  {likeCounts[comment.id] !== undefined ? likeCounts[comment.id] : ""}
+                </Button>
+                <small className="text-muted me-2">
+                  {formattedTime}
+                </small>
+              </div>
+            </div>
+          </div>
+        );
+      })}
 
     </div>
   );
